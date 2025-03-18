@@ -11,7 +11,7 @@ const checkLogin = (req, res) => {
     if (accessToken) {
         try {
             jwt.verify(accessToken, process.env.JWT_SECRET);
-            return res.redirect("/");
+            return res.redirect("/profilelog");
         } catch (err) {
             console.log("[INFO]: Access token expired or invalid.");
         }
@@ -65,7 +65,7 @@ const handleAuth = async (req, res) => {
         res.cookie("access_token", accessToken, { httpOnly: true });
         res.cookie("refresh_token", tokens.refresh_token, { httpOnly: true });
 
-        return res.redirect("/");
+        return res.redirect("/profilelog");
     } catch (err) {
         errorHandlerFunc(
             err,
@@ -101,7 +101,7 @@ const refreshAccessToken = async (req, res) => {
 
         // Update access token cookie.
         res.cookie("access_token", newAccessToken, { httpOnly: true });
-        return res.redirect("/");
+        return res.redirect("/dashboard");
     } catch (err) {
         errorHandlerFunc(
             err,
